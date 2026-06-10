@@ -13,7 +13,7 @@ corretor = SpellChecker(language='pt')
 palavras_vazias = set(stopwords.words('portuguese'))
 
 df = pd.read_excel("dados.xlsx")
-respostas = df['O que poderia ser melhorado na organização do trabalho ou na distribuição das atividades?'].dropna().astype(str).tolist()
+respostas = df[NOME_COLUNA].dropna().astype(str).tolist()
 
 def corrigeTexto(texto):
     palavras = re.findall(r'\b\w+\b', texto.lower())
