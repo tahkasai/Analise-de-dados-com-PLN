@@ -1,8 +1,7 @@
-# Análise de dados: Filtro de palavras chaves com PLN
-O código análisa um conjunto de dados e trás as frases/palavras mais frequentes
+# Análise de dados: Palavras mais utilizadas com PLN
+O código análisa um conjunto de dados e trás as palavras mais frequentes
 
 ## Passo a passo
-
 Primeiro para evitar o erro de executar o código usando uma versão ou ambiente do Python diferente daquele onde instalou o Pandas, é interessante isolar o projeto de PLN criando ambiente virtual.
 
 no terminal, execute:
@@ -15,17 +14,24 @@ Em seguida, instale as seguintes bibliotecas
 pip install pandas
 pip install nltk
 pip install openpyxl # para poder ler arquivos xlsx
+pip install pyspellchecker  # para corrigir os textos antes de analisar
 ```
 
-## Explicação de termos
+## Explicação
 
+### Termos
 * **Tokenização** é o processo de dividir um texto em unidades menores, conhecidas como tokens. 
 * **Stopwords** são palavras comuns que não agregam muito significado ao texto, como artigos, preposições e pronomes.
 * **Stemming** é o processo de reduzir uma palavra à sua forma base ou radical. Isso ajuda a lidar com variações de palavras e reduzir a dimensionalidade dos dados.
 
-Link para estudos: https://medium.com/@dheiver.santos_10420/t%C3%ADtulo-introdu%C3%A7%C3%A3o-ao-processamento-de-linguagem-natural-pln-com-python-e-a-biblioteca-nltk-a6df2f06d395
+> Link para estudos: https://medium.com/@dheiver.santos_10420/t%C3%ADtulo-introdu%C3%A7%C3%A3o-ao-processamento-de-linguagem-natural-pln-com-python-e-a-biblioteca-nltk-a6df2f06d395
 
-## Explicação do código
+### Bibliotecas
+
+
+> Cohecer outras bibliotecas: [TextBlob](https://www.alura.com.br/artigos/textblob-alternativa-para-processamento-linguagem-natural?srsltid=AfmBOopeER9hGDBIQtzVUqTgBsW7nQuU_nFvBH7Z2cJdtoSAww2BkrIn)
+
+## Explicação do código base
 
 ```python
 import pandas as pd 
@@ -55,4 +61,11 @@ frequencia = Counter(categorias)
 
 # Mostra os 20 mais frequentes
 print(frequencia.most_common(20))
+```
+
+## Nuvem de Palavras
+
+Antes de rodar a nuvem de palavras, é necessário instalar a seguinte biblioteca:
+```bash
+pip install nltk wordcloud matplotlib
 ```
