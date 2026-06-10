@@ -44,7 +44,7 @@ nltk.download('punkt_tab')
 # Leitura de um arquivo excel 
 df = pd.read_excel("dados.xlsx") 
 # Atribui os dados da coluna "O que poderia ser melhorado na organização do trabalho ou na distribuição das atividades?", removendo os dados nulos (dropna), converte dados pra string (astype(str)) e transforma a série em uma lista (tolist).
-respostas = df['O que poderia ser melhorado na organização do trabalho ou na distribuição das atividades?'].dropna().astype(str).tolist()
+respostas = df[NOME_COLUNA].dropna().astype(str).tolist()
 
 texto = " ".join(respostas)
 
