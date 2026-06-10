@@ -1,0 +1,5 @@
+// Pasta do ambiente virtual
+.venv
+
+// Arquivo de dados
+dados.xlsx
