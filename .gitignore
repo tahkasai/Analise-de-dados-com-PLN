@@ -1,3 +1,6 @@
+// Arquivo .env
+.env
+
 // Pasta do ambiente virtual
 .venv
 
