@@ -4,6 +4,8 @@ from wordcloud import WordCloud
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from spellchecker import SpellChecker
+import re
 import matplotlib
 matplotlib.use('Agg') 
 
@@ -11,18 +13,32 @@ nltk.download('punkt')
 nltk.download('punkt_tab')
 nltk.download('stopwords')
 
-df = pd.read_excel("dados.xlsx")
-coluna_alvo = 'O que poderia ser melhorado na organização do trabalho ou na distribuição das atividades?'
-respostas = df[coluna_alvo].dropna().astype(str).tolist()
+corretor = SpellChecker(language='pt')
 
-texto = " ".join(respostas)
-palavras = word_tokenize(texto.lower())
 stopwordsPortugues = set(stopwords.words('portuguese'))
-palavras_extras = {'pra', 'pro', 'tudo', 'nada', 'fazer', 'ter', 'ser', 'pode', 'sobre'}
-stopwordsPortugues.update(palavras_extras)
+palavrasExtras = {'pra', 'pro', 'tudo', 'nada', 'fazer', 'ter', 'ser', 'pode', 'sobre'}
+stopwordsPortugues.update(palavrasExtras)
 
-palavras_filtradas = [p for p in palavras if p.isalnum() and p not in stopwordsPortugues]
-textoLimpo = " ".join(palavras_filtradas)
+df = pd.read_excel("dados.xlsx")
+respostas = df[NOME_COLUNA].dropna().astype(str).tolist()
+
+def corrigeTexto(texto):
+    palavras = re.findall(r'\b\w+\b', texto.lower())
+    palavras_corrigidas = []
+    
+    for palavra in palavras:
+        correcao = corretor.correction(palavra)
+        palavras_corrigidas.append(correcao if correcao else palavra)
+        
+    return " ".join(palavras_corrigidas)
+
+respostasCorrigidas = [corrigeTexto(res) for res in respostas]
+
+texto = " ".join(respostasCorrigidas)
+palavras = word_tokenize(texto.lower())
+
+palavrasFiltradas = [p for p in palavras if p.isalnum() and p not in stopwordsPortugues]
+textoLimpo = " ".join(palavrasFiltradas)
 
 nuvemPalavras = WordCloud(
     width=1000, 
